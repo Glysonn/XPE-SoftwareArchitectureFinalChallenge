@@ -12,7 +12,7 @@ namespace ProdManager.Application.Services
     {
         public void CreateProduct(CreateProductDto dto)
         {
-            var product = Product.Create(dto.Name, dto.Price, dto.Description);
+            var product = Product.Create(dto.Code, dto.Name, dto.Price, dto.Description);
             productRepository.CreateProduct(product);
 
             unitOfWork.Commit();
@@ -23,7 +23,7 @@ namespace ProdManager.Application.Services
             var existing = productRepository.FindProductById(dto.Id);
             if (existing == null)
                 throw new InvalidOperationException("Product not found");
-
+            
             existing.Name = dto.Name;
             existing.Price = dto.Price;
             existing.Description = dto.Description;
@@ -53,7 +53,16 @@ namespace ProdManager.Application.Services
 
             return product is null
                 ? null
-                : new ProductDto(product.Id, product.Name, product.Price, product.Description);
+                : new ProductDto(product.Id, product.Code, product.Name, product.Price, product.Description);
+        }
+        
+        public ProductDto? FindProductByCode(string code)
+        {
+            var product = productRepository.FindProductByCode(code);
+
+            return product is null
+                ? null
+                : new ProductDto(product.Id, product.Code, product.Name, product.Price, product.Description);
         }
 
         public IEnumerable<ProductDto> FindAllProducts()
@@ -61,6 +70,7 @@ namespace ProdManager.Application.Services
             var products = productRepository.FindAllProducts();
             return products.Select(p => new ProductDto(
                 p.Id,
+                p.Code,
                 p.Name,
                 p.Price,
                 p.Description
@@ -69,9 +79,10 @@ namespace ProdManager.Application.Services
 
         public IEnumerable<ProductDto> FindProductsByName(string name)
         {
-            var products = productRepository.FindProductByName(name);
+            var products = productRepository.FindProductsByName(name);
             return products.Select(p => new ProductDto(
                 p.Id,
+                p.Code,
                 p.Name,
                 p.Price,
                 p.Description

@@ -33,12 +33,17 @@ public sealed class ProductRepository(AppDbContext context) : IProductRepository
         return _context.Products.FirstOrDefault(p => p.Id == id);
     }
 
+    public Product? FindProductByCode(string code)
+    {
+        return _context.Products.FirstOrDefault(p => p.Code == code);
+    }
+
     public IEnumerable<Product> FindAllProducts()
     {
         return _context.Products.ToList();
     }
 
-    public IEnumerable<Product> FindProductByName(string name)
+    public IEnumerable<Product> FindProductsByName(string name)
     {
         return _context.Products.Where(x => EF.Functions.Like(x.Name, $"%{name}%"));
     }

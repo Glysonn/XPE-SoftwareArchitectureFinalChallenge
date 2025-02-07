@@ -1,3 +1,3 @@
 namespace ProdManager.Application.DTOs;
 
-public sealed record CreateProductDto(string Name, decimal Price, string Description);
+public sealed record CreateProductDto(string Code, string Name, decimal Price, string Description);

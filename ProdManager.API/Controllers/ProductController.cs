@@ -26,6 +26,18 @@ namespace ProdManager.API.Controllers
 
             return Ok(productDto);
         }
+        
+        [HttpGet("GetByCode/{code}")]
+        public IActionResult GetProductByCode(string code)
+        {
+            var productDto = productService.FindProductByCode(code);
+            if (productDto == null)
+            {
+                return NotFound("Product not found.");
+            }
+
+            return Ok(productDto);
+        }
 
         [HttpGet("GetByName")]
         public IActionResult GetProductsByName([FromQuery] string name)

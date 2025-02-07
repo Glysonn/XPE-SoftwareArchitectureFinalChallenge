@@ -1,3 +1,3 @@
 namespace ProdManager.Application.DTOs;
 
-public sealed record ProductDto(Guid Id, string Name, decimal Price, string Description);
+public sealed record ProductDto(Guid Id, string Code, string Name, decimal Price, string Description);

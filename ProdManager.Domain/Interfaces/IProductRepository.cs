@@ -10,6 +10,7 @@ public interface IProductRepository
     
     int CountProducts();
     Product? FindProductById(Guid id);
+    Product? FindProductByCode(string code);
+    IEnumerable<Product> FindProductsByName(string name);
     IEnumerable<Product> FindAllProducts();    
-    IEnumerable<Product> FindProductByName(string name);
 }

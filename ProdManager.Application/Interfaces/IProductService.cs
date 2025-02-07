@@ -10,6 +10,7 @@ public interface IProductService
 
     int CountProducts();
     ProductDto? FindProductById(Guid id);
+    ProductDto? FindProductByCode(string code);
     IEnumerable<ProductDto> FindAllProducts();
     IEnumerable<ProductDto> FindProductsByName(string name);
 }
